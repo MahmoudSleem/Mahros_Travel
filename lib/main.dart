@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mahros_travel/routes/routes.dart';
+// import 'package:mahros_travel/routes/routes.dart';
 
 void main() {
-  runApp(const MyApp());
-}
+  runApp(
+    GetMaterialApp(
+      title : "Products",
+      initialRoute: AppRoutes.splash,
+      getPages: AppRoutes.routes ,
+      debugShowCheckedModeBanner: false,
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
-      home: Container(
-        color:  Colors.red,
-      ) ,
-    );
-  }
+    )
+  );
 }

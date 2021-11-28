@@ -1,0 +1,1016 @@
+input CreateInitialUserInput {
+  phone: String
+  password: String
+}
+
+type Mutation {
+  createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
+  authenticateUserWithPassword(phone: String!, password: String!): UserAuthenticationWithPasswordResult!
+  createOffice(data: OfficeCreateInput!): Office
+  createOffices(data: [OfficeCreateInput!]!): [Office]
+  updateOffice(where: OfficeWhereUniqueInput!, data: OfficeUpdateInput!): Office
+  updateOffices(data: [OfficeUpdateArgs!]!): [Office]
+  deleteOffice(where: OfficeWhereUniqueInput!): Office
+  deleteOffices(where: [OfficeWhereUniqueInput!]!): [Office]
+  createCustomer(data: CustomerCreateInput!): Customer
+  createCustomers(data: [CustomerCreateInput!]!): [Customer]
+  updateCustomer(where: CustomerWhereUniqueInput!, data: CustomerUpdateInput!): Customer
+  updateCustomers(data: [CustomerUpdateArgs!]!): [Customer]
+  deleteCustomer(where: CustomerWhereUniqueInput!): Customer
+  deleteCustomers(where: [CustomerWhereUniqueInput!]!): [Customer]
+  createCar(data: CarCreateInput!): Car
+  createCars(data: [CarCreateInput!]!): [Car]
+  updateCar(where: CarWhereUniqueInput!, data: CarUpdateInput!): Car
+  updateCars(data: [CarUpdateArgs!]!): [Car]
+  deleteCar(where: CarWhereUniqueInput!): Car
+  deleteCars(where: [CarWhereUniqueInput!]!): [Car]
+  createUser(data: UserCreateInput!): User
+  createUsers(data: [UserCreateInput!]!): [User]
+  updateUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User
+  updateUsers(data: [UserUpdateArgs!]!): [User]
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteUsers(where: [UserWhereUniqueInput!]!): [User]
+  createReservation(data: ReservationCreateInput!): Reservation
+  createReservations(data: [ReservationCreateInput!]!): [Reservation]
+  updateReservation(where: ReservationWhereUniqueInput!, data: ReservationUpdateInput!): Reservation
+  updateReservations(data: [ReservationUpdateArgs!]!): [Reservation]
+  deleteReservation(where: ReservationWhereUniqueInput!): Reservation
+  deleteReservations(where: [ReservationWhereUniqueInput!]!): [Reservation]
+  createDriver(data: DriverCreateInput!): Driver
+  createDrivers(data: [DriverCreateInput!]!): [Driver]
+  updateDriver(where: DriverWhereUniqueInput!, data: DriverUpdateInput!): Driver
+  updateDrivers(data: [DriverUpdateArgs!]!): [Driver]
+  deleteDriver(where: DriverWhereUniqueInput!): Driver
+  deleteDrivers(where: [DriverWhereUniqueInput!]!): [Driver]
+  createCoupon(data: CouponCreateInput!): Coupon
+  createCoupons(data: [CouponCreateInput!]!): [Coupon]
+  updateCoupon(where: CouponWhereUniqueInput!, data: CouponUpdateInput!): Coupon
+  updateCoupons(data: [CouponUpdateArgs!]!): [Coupon]
+  deleteCoupon(where: CouponWhereUniqueInput!): Coupon
+  deleteCoupons(where: [CouponWhereUniqueInput!]!): [Coupon]
+  createRole(data: RoleCreateInput!): Role
+  createRoles(data: [RoleCreateInput!]!): [Role]
+  updateRole(where: RoleWhereUniqueInput!, data: RoleUpdateInput!): Role
+  updateRoles(data: [RoleUpdateArgs!]!): [Role]
+  deleteRole(where: RoleWhereUniqueInput!): Role
+  deleteRoles(where: [RoleWhereUniqueInput!]!): [Role]
+  createShippingRequest(data: ShippingRequestCreateInput!): ShippingRequest
+  createShippingRequests(data: [ShippingRequestCreateInput!]!): [ShippingRequest]
+  updateShippingRequest(where: ShippingRequestWhereUniqueInput!, data: ShippingRequestUpdateInput!): ShippingRequest
+  updateShippingRequests(data: [ShippingRequestUpdateArgs!]!): [ShippingRequest]
+  deleteShippingRequest(where: ShippingRequestWhereUniqueInput!): ShippingRequest
+  deleteShippingRequests(where: [ShippingRequestWhereUniqueInput!]!): [ShippingRequest]
+  endSession: Boolean!
+}
+
+union AuthenticatedItem = User
+
+union UserAuthenticationWithPasswordResult = UserAuthenticationWithPasswordSuccess | UserAuthenticationWithPasswordFailure
+
+type UserAuthenticationWithPasswordSuccess {
+  sessionToken: String!
+  item: User!
+}
+
+type UserAuthenticationWithPasswordFailure {
+  message: String!
+}
+
+type Office {
+  id: ID!
+  name: String
+  phone: String
+  address: String
+  employee(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0): [User!]
+  employeeCount(where: UserWhereInput! = {}): Int
+  accountValue: Int
+  createBy: User
+  metadata: JSON
+}
+
+input OfficeWhereUniqueInput {
+  id: ID
+  name: String
+  phone: String
+}
+
+input OfficeWhereInput {
+  AND: [OfficeWhereInput!]
+  OR: [OfficeWhereInput!]
+  NOT: [OfficeWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  phone: StringFilter
+  address: StringFilter
+  employee: UserManyRelationFilter
+  accountValue: IntNullableFilter
+  createBy: UserWhereInput
+}
+
+input IDFilter {
+  equals: ID
+  in: [ID!]
+  notIn: [ID!]
+  lt: ID
+  lte: ID
+  gt: ID
+  gte: ID
+  not: IDFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input UserManyRelationFilter {
+  every: UserWhereInput
+  some: UserWhereInput
+  none: UserWhereInput
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntNullableFilter
+}
+
+input OfficeOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  phone: OrderDirection
+  address: OrderDirection
+  accountValue: OrderDirection
+}
+
+enum OrderDirection {
+  asc
+  desc
+}
+
+input OfficeUpdateInput {
+  name: String
+  phone: String
+  address: String
+  employee: UserRelateToManyForUpdateInput
+  accountValue: Int
+  createBy: UserRelateToOneForUpdateInput
+  metadata: JSON
+}
+
+input UserRelateToManyForUpdateInput {
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserRelateToOneForUpdateInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+}
+
+input OfficeUpdateArgs {
+  where: OfficeWhereUniqueInput!
+  data: OfficeUpdateInput!
+}
+
+input OfficeCreateInput {
+  name: String
+  phone: String
+  address: String
+  employee: UserRelateToManyForCreateInput
+  accountValue: Int
+  createBy: UserRelateToOneForCreateInput
+  metadata: JSON
+}
+
+input UserRelateToManyForCreateInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserRelateToOneForCreateInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+type Customer {
+  id: ID!
+  name: String
+  phone: String
+  whatsappPhone: String
+  address: String
+  metadata: JSON
+}
+
+input CustomerWhereUniqueInput {
+  id: ID
+}
+
+input CustomerWhereInput {
+  AND: [CustomerWhereInput!]
+  OR: [CustomerWhereInput!]
+  NOT: [CustomerWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  phone: StringFilter
+  whatsappPhone: StringFilter
+  address: StringFilter
+}
+
+input CustomerOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  phone: OrderDirection
+  whatsappPhone: OrderDirection
+  address: OrderDirection
+}
+
+input CustomerUpdateInput {
+  name: String
+  phone: String
+  whatsappPhone: String
+  address: String
+  metadata: JSON
+}
+
+input CustomerUpdateArgs {
+  where: CustomerWhereUniqueInput!
+  data: CustomerUpdateInput!
+}
+
+input CustomerCreateInput {
+  name: String
+  phone: String
+  whatsappPhone: String
+  address: String
+  metadata: JSON
+}
+
+type Car {
+  id: ID!
+  type: String
+  number: String
+  driver: Driver
+  metadata: JSON
+}
+
+input CarWhereUniqueInput {
+  id: ID
+  number: String
+}
+
+input CarWhereInput {
+  AND: [CarWhereInput!]
+  OR: [CarWhereInput!]
+  NOT: [CarWhereInput!]
+  id: IDFilter
+  type: StringFilter
+  number: StringFilter
+  driver: DriverWhereInput
+}
+
+input CarOrderByInput {
+  id: OrderDirection
+  type: OrderDirection
+  number: OrderDirection
+}
+
+input CarUpdateInput {
+  type: String
+  number: String
+  driver: DriverRelateToOneForUpdateInput
+  metadata: JSON
+}
+
+input DriverRelateToOneForUpdateInput {
+  create: DriverCreateInput
+  connect: DriverWhereUniqueInput
+  disconnect: Boolean
+}
+
+input CarUpdateArgs {
+  where: CarWhereUniqueInput!
+  data: CarUpdateInput!
+}
+
+input CarCreateInput {
+  type: String
+  number: String
+  driver: DriverRelateToOneForCreateInput
+  metadata: JSON
+}
+
+input DriverRelateToOneForCreateInput {
+  create: DriverCreateInput
+  connect: DriverWhereUniqueInput
+}
+
+type User {
+  id: ID!
+  name: String
+  phone: String
+  password: PasswordState
+  address: String
+  role: Role
+  office: Office
+  metadata: JSON
+}
+
+type PasswordState {
+  isSet: Boolean!
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  phone: String
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  phone: StringFilter
+  password: PasswordFilter
+  address: StringFilter
+  role: RoleWhereInput
+  office: OfficeWhereInput
+}
+
+input PasswordFilter {
+  isSet: Boolean!
+}
+
+input UserOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  phone: OrderDirection
+  address: OrderDirection
+}
+
+input UserUpdateInput {
+  name: String
+  phone: String
+  password: String
+  address: String
+  role: RoleRelateToOneForUpdateInput
+  office: OfficeRelateToOneForUpdateInput
+  metadata: JSON
+}
+
+input RoleRelateToOneForUpdateInput {
+  create: RoleCreateInput
+  connect: RoleWhereUniqueInput
+  disconnect: Boolean
+}
+
+input OfficeRelateToOneForUpdateInput {
+  create: OfficeCreateInput
+  connect: OfficeWhereUniqueInput
+  disconnect: Boolean
+}
+
+input UserUpdateArgs {
+  where: UserWhereUniqueInput!
+  data: UserUpdateInput!
+}
+
+input UserCreateInput {
+  name: String
+  phone: String
+  password: String
+  address: String
+  role: RoleRelateToOneForCreateInput
+  office: OfficeRelateToOneForCreateInput
+  metadata: JSON
+}
+
+input RoleRelateToOneForCreateInput {
+  create: RoleCreateInput
+  connect: RoleWhereUniqueInput
+}
+
+input OfficeRelateToOneForCreateInput {
+  create: OfficeCreateInput
+  connect: OfficeWhereUniqueInput
+}
+
+type Reservation {
+  id: ID!
+  number: String
+  date: DateTime
+  from: String
+  to: String
+  status: String
+  paidStatus: String
+  value: Int
+  valueAfterDiscount: Int
+  document: String
+  flightAirline: String
+  flightFrom: String
+  flightNumber: String
+  flightDate: String
+  option: String
+  bigBagsNumber: Int
+  smallBagNumber: Int
+  pickUpLocation: String
+  dropOffLocation: String
+  coupon: Coupon
+  office: Office
+  employee: User
+  customer: Customer
+  driver: Driver
+  car: Car
+  metadata: JSON
+  createBy: User
+  changeStatusBy: User
+}
+
+scalar DateTime
+
+input ReservationWhereUniqueInput {
+  id: ID
+  number: String
+}
+
+input ReservationWhereInput {
+  AND: [ReservationWhereInput!]
+  OR: [ReservationWhereInput!]
+  NOT: [ReservationWhereInput!]
+  id: IDFilter
+  number: StringFilter
+  date: DateTimeNullableFilter
+  from: StringNullableFilter
+  to: StringNullableFilter
+  status: StringNullableFilter
+  paidStatus: StringNullableFilter
+  value: IntNullableFilter
+  valueAfterDiscount: IntNullableFilter
+  document: StringNullableFilter
+  flightAirline: StringFilter
+  flightFrom: StringFilter
+  flightNumber: StringFilter
+  flightDate: StringFilter
+  option: StringNullableFilter
+  bigBagsNumber: IntNullableFilter
+  smallBagNumber: IntNullableFilter
+  pickUpLocation: StringFilter
+  dropOffLocation: StringFilter
+  coupon: CouponWhereInput
+  office: OfficeWhereInput
+  employee: UserWhereInput
+  customer: CustomerWhereInput
+  driver: DriverWhereInput
+  car: CarWhereInput
+  createBy: UserWhereInput
+  changeStatusBy: UserWhereInput
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: DateTimeNullableFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input ReservationOrderByInput {
+  id: OrderDirection
+  number: OrderDirection
+  date: OrderDirection
+  from: OrderDirection
+  to: OrderDirection
+  status: OrderDirection
+  paidStatus: OrderDirection
+  value: OrderDirection
+  valueAfterDiscount: OrderDirection
+  document: OrderDirection
+  flightAirline: OrderDirection
+  flightFrom: OrderDirection
+  flightNumber: OrderDirection
+  flightDate: OrderDirection
+  option: OrderDirection
+  bigBagsNumber: OrderDirection
+  smallBagNumber: OrderDirection
+  pickUpLocation: OrderDirection
+  dropOffLocation: OrderDirection
+}
+
+input ReservationUpdateInput {
+  number: String
+  date: DateTime
+  from: String
+  to: String
+  status: String
+  paidStatus: String
+  value: Int
+  valueAfterDiscount: Int
+  document: String
+  flightAirline: String
+  flightFrom: String
+  flightNumber: String
+  flightDate: String
+  option: String
+  bigBagsNumber: Int
+  smallBagNumber: Int
+  pickUpLocation: String
+  dropOffLocation: String
+  coupon: CouponRelateToOneForUpdateInput
+  office: OfficeRelateToOneForUpdateInput
+  employee: UserRelateToOneForUpdateInput
+  customer: CustomerRelateToOneForUpdateInput
+  driver: DriverRelateToOneForUpdateInput
+  car: CarRelateToOneForUpdateInput
+  metadata: JSON
+  createBy: UserRelateToOneForUpdateInput
+  changeStatusBy: UserRelateToOneForUpdateInput
+}
+
+input CouponRelateToOneForUpdateInput {
+  create: CouponCreateInput
+  connect: CouponWhereUniqueInput
+  disconnect: Boolean
+}
+
+input CustomerRelateToOneForUpdateInput {
+  create: CustomerCreateInput
+  connect: CustomerWhereUniqueInput
+  disconnect: Boolean
+}
+
+input CarRelateToOneForUpdateInput {
+  create: CarCreateInput
+  connect: CarWhereUniqueInput
+  disconnect: Boolean
+}
+
+input ReservationUpdateArgs {
+  where: ReservationWhereUniqueInput!
+  data: ReservationUpdateInput!
+}
+
+input ReservationCreateInput {
+  number: String
+  date: DateTime
+  from: String
+  to: String
+  status: String
+  paidStatus: String
+  value: Int
+  valueAfterDiscount: Int
+  document: String
+  flightAirline: String
+  flightFrom: String
+  flightNumber: String
+  flightDate: String
+  option: String
+  bigBagsNumber: Int
+  smallBagNumber: Int
+  pickUpLocation: String
+  dropOffLocation: String
+  coupon: CouponRelateToOneForCreateInput
+  office: OfficeRelateToOneForCreateInput
+  employee: UserRelateToOneForCreateInput
+  customer: CustomerRelateToOneForCreateInput
+  driver: DriverRelateToOneForCreateInput
+  car: CarRelateToOneForCreateInput
+  metadata: JSON
+  createBy: UserRelateToOneForCreateInput
+  changeStatusBy: UserRelateToOneForCreateInput
+}
+
+input CouponRelateToOneForCreateInput {
+  create: CouponCreateInput
+  connect: CouponWhereUniqueInput
+}
+
+input CustomerRelateToOneForCreateInput {
+  create: CustomerCreateInput
+  connect: CustomerWhereUniqueInput
+}
+
+input CarRelateToOneForCreateInput {
+  create: CarCreateInput
+  connect: CarWhereUniqueInput
+}
+
+type Driver {
+  id: ID!
+  name: String
+  phone: String
+  password: String
+  address: String
+  location: String
+  lat: Float
+  long: Float
+  car: Car
+  metadata: JSON
+}
+
+input DriverWhereUniqueInput {
+  id: ID
+  phone: String
+}
+
+input DriverWhereInput {
+  AND: [DriverWhereInput!]
+  OR: [DriverWhereInput!]
+  NOT: [DriverWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  phone: StringFilter
+  password: StringFilter
+  address: StringFilter
+  lat: FloatNullableFilter
+  long: FloatNullableFilter
+  car: CarWhereInput
+}
+
+input FloatNullableFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: FloatNullableFilter
+}
+
+input DriverOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  phone: OrderDirection
+  password: OrderDirection
+  address: OrderDirection
+  lat: OrderDirection
+  long: OrderDirection
+}
+
+input DriverUpdateInput {
+  name: String
+  phone: String
+  password: String
+  address: String
+  lat: Float
+  long: Float
+  car: CarRelateToOneForUpdateInput
+  metadata: JSON
+}
+
+input DriverUpdateArgs {
+  where: DriverWhereUniqueInput!
+  data: DriverUpdateInput!
+}
+
+input DriverCreateInput {
+  name: String
+  phone: String
+  password: String
+  address: String
+  lat: Float
+  long: Float
+  car: CarRelateToOneForCreateInput
+  metadata: JSON
+}
+
+type Coupon {
+  id: ID!
+  number: String
+  value: Int
+  isValid: Boolean
+  isUsed: Boolean
+  createBy: User
+  usedBy: User
+  office: Office
+  metadata: JSON
+}
+
+input CouponWhereUniqueInput {
+  id: ID
+}
+
+input CouponWhereInput {
+  AND: [CouponWhereInput!]
+  OR: [CouponWhereInput!]
+  NOT: [CouponWhereInput!]
+  id: IDFilter
+  number: StringFilter
+  value: IntNullableFilter
+  isValid: BooleanFilter
+  isUsed: BooleanFilter
+  createBy: UserWhereInput
+  usedBy: UserWhereInput
+  office: OfficeWhereInput
+}
+
+input BooleanFilter {
+  equals: Boolean
+  not: BooleanFilter
+}
+
+input CouponOrderByInput {
+  id: OrderDirection
+  number: OrderDirection
+  value: OrderDirection
+  isValid: OrderDirection
+  isUsed: OrderDirection
+}
+
+input CouponUpdateInput {
+  number: String
+  value: Int
+  isValid: Boolean
+  isUsed: Boolean
+  createBy: UserRelateToOneForUpdateInput
+  usedBy: UserRelateToOneForUpdateInput
+  office: OfficeRelateToOneForUpdateInput
+  metadata: JSON
+}
+
+input CouponUpdateArgs {
+  where: CouponWhereUniqueInput!
+  data: CouponUpdateInput!
+}
+
+input CouponCreateInput {
+  number: String
+  value: Int
+  isValid: Boolean
+  isUsed: Boolean
+  createBy: UserRelateToOneForCreateInput
+  usedBy: UserRelateToOneForCreateInput
+  office: OfficeRelateToOneForCreateInput
+  metadata: JSON
+}
+
+type Role {
+  id: ID!
+  name: String
+}
+
+input RoleWhereUniqueInput {
+  id: ID
+}
+
+input RoleWhereInput {
+  AND: [RoleWhereInput!]
+  OR: [RoleWhereInput!]
+  NOT: [RoleWhereInput!]
+  id: IDFilter
+  name: StringFilter
+}
+
+input RoleOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input RoleUpdateInput {
+  name: String
+}
+
+input RoleUpdateArgs {
+  where: RoleWhereUniqueInput!
+  data: RoleUpdateInput!
+}
+
+input RoleCreateInput {
+  name: String
+}
+
+type ShippingRequest {
+  id: ID!
+  date: DateTime
+  status: String
+  value: Int
+  office: Office
+}
+
+input ShippingRequestWhereUniqueInput {
+  id: ID
+}
+
+input ShippingRequestWhereInput {
+  AND: [ShippingRequestWhereInput!]
+  OR: [ShippingRequestWhereInput!]
+  NOT: [ShippingRequestWhereInput!]
+  id: IDFilter
+  date: DateTimeNullableFilter
+  status: StringNullableFilter
+  value: IntNullableFilter
+  office: OfficeWhereInput
+}
+
+input ShippingRequestOrderByInput {
+  id: OrderDirection
+  date: OrderDirection
+  status: OrderDirection
+  value: OrderDirection
+}
+
+input ShippingRequestUpdateInput {
+  date: DateTime
+  status: String
+  value: Int
+  office: OfficeRelateToOneForUpdateInput
+}
+
+input ShippingRequestUpdateArgs {
+  where: ShippingRequestWhereUniqueInput!
+  data: ShippingRequestUpdateInput!
+}
+
+input ShippingRequestCreateInput {
+  date: DateTime
+  status: String
+  value: Int
+  office: OfficeRelateToOneForCreateInput
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Query {
+  authenticatedItem: AuthenticatedItem
+  offices(where: OfficeWhereInput! = {}, orderBy: [OfficeOrderByInput!]! = [], take: Int, skip: Int! = 0): [Office!]
+  office(where: OfficeWhereUniqueInput!): Office
+  officesCount(where: OfficeWhereInput! = {}): Int
+  customers(where: CustomerWhereInput! = {}, orderBy: [CustomerOrderByInput!]! = [], take: Int, skip: Int! = 0): [Customer!]
+  customer(where: CustomerWhereUniqueInput!): Customer
+  customersCount(where: CustomerWhereInput! = {}): Int
+  cars(where: CarWhereInput! = {}, orderBy: [CarOrderByInput!]! = [], take: Int, skip: Int! = 0): [Car!]
+  car(where: CarWhereUniqueInput!): Car
+  carsCount(where: CarWhereInput! = {}): Int
+  users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0): [User!]
+  user(where: UserWhereUniqueInput!): User
+  usersCount(where: UserWhereInput! = {}): Int
+  reservations(where: ReservationWhereInput! = {}, orderBy: [ReservationOrderByInput!]! = [], take: Int, skip: Int! = 0): [Reservation!]
+  reservation(where: ReservationWhereUniqueInput!): Reservation
+  reservationsCount(where: ReservationWhereInput! = {}): Int
+  drivers(where: DriverWhereInput! = {}, orderBy: [DriverOrderByInput!]! = [], take: Int, skip: Int! = 0): [Driver!]
+  driver(where: DriverWhereUniqueInput!): Driver
+  driversCount(where: DriverWhereInput! = {}): Int
+  coupons(where: CouponWhereInput! = {}, orderBy: [CouponOrderByInput!]! = [], take: Int, skip: Int! = 0): [Coupon!]
+  coupon(where: CouponWhereUniqueInput!): Coupon
+  couponsCount(where: CouponWhereInput! = {}): Int
+  roles(where: RoleWhereInput! = {}, orderBy: [RoleOrderByInput!]! = [], take: Int, skip: Int! = 0): [Role!]
+  role(where: RoleWhereUniqueInput!): Role
+  rolesCount(where: RoleWhereInput! = {}): Int
+  shippingRequests(where: ShippingRequestWhereInput! = {}, orderBy: [ShippingRequestOrderByInput!]! = [], take: Int, skip: Int! = 0): [ShippingRequest!]
+  shippingRequest(where: ShippingRequestWhereUniqueInput!): ShippingRequest
+  shippingRequestsCount(where: ShippingRequestWhereInput! = {}): Int
+  keystone: KeystoneMeta!
+}
+
+type KeystoneMeta {
+  adminMeta: KeystoneAdminMeta!
+}
+
+type KeystoneAdminMeta {
+  enableSignout: Boolean!
+  enableSessionItem: Boolean!
+  lists: [KeystoneAdminUIListMeta!]!
+  list(key: String!): KeystoneAdminUIListMeta
+}
+
+type KeystoneAdminUIListMeta {
+  key: String!
+  itemQueryName: String!
+  listQueryName: String!
+  hideCreate: Boolean!
+  hideDelete: Boolean!
+  path: String!
+  label: String!
+  singular: String!
+  plural: String!
+  description: String
+  initialColumns: [String!]!
+  pageSize: Int!
+  labelField: String!
+  fields: [KeystoneAdminUIFieldMeta!]!
+  initialSort: KeystoneAdminUISort
+  isHidden: Boolean!
+}
+
+type KeystoneAdminUIFieldMeta {
+  path: String!
+  label: String!
+  isOrderable: Boolean!
+  isFilterable: Boolean!
+  fieldMeta: JSON
+  viewsIndex: Int!
+  customViewsIndex: Int
+  createView: KeystoneAdminUIFieldMetaCreateView!
+  listView: KeystoneAdminUIFieldMetaListView!
+  itemView(id: ID): KeystoneAdminUIFieldMetaItemView
+  search: QueryMode
+}
+
+type KeystoneAdminUIFieldMetaCreateView {
+  fieldMode: KeystoneAdminUIFieldMetaCreateViewFieldMode!
+}
+
+enum KeystoneAdminUIFieldMetaCreateViewFieldMode {
+  edit
+  hidden
+}
+
+type KeystoneAdminUIFieldMetaListView {
+  fieldMode: KeystoneAdminUIFieldMetaListViewFieldMode!
+}
+
+enum KeystoneAdminUIFieldMetaListViewFieldMode {
+  read
+  hidden
+}
+
+type KeystoneAdminUIFieldMetaItemView {
+  fieldMode: KeystoneAdminUIFieldMetaItemViewFieldMode
+}
+
+enum KeystoneAdminUIFieldMetaItemViewFieldMode {
+  edit
+  read
+  hidden
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+type KeystoneAdminUISort {
+  field: String!
+  direction: KeystoneAdminUISortDirection!
+}
+
+enum KeystoneAdminUISortDirection {
+  ASC
+  DESC
+}

@@ -1,0 +1,30 @@
+mutation Mutation($phone: String!, $password: String!) {
+  authenticateUserWithPassword(phone: $phone, password: $password) {
+    ... on UserAuthenticationWithPasswordSuccess {
+      sessionToken
+      item {
+        name
+        phone
+        id
+        password {
+          isSet
+        }
+        address
+      }
+    }
+  }
+}
+
+query Users {
+  users {
+    name
+    phone
+  }
+}
+
+query AllCars {
+  cars {
+    type
+    number
+  }
+}
